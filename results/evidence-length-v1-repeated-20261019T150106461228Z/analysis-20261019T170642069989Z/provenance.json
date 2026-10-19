@@ -1,0 +1,10 @@
+{
+  "source_run": "results/evidence-length-v1-repeated-20261019T150106461228Z",
+  "execution_commit": "9534ee8e66fba27a9d738f601c52d3ccdba5bdd0",
+  "journal_sha256": "18a82d6f45832420172590cc6a9484e971d93719ee4ff29d4313f9180ff7de7c",
+  "analysis_script_sha256": "f34e6a91283a5b3b45e9f2d9a219d1da7afbda6a722a09d93e8dd01d570d87c1",
+  "created_utc": "2026-10-19T17:06:42.072080+00:00",
+  "operator_interaction": "Terminal output showed typed q and exit during execution. Run completed; measurement impact is undetermined.",
+  "environment_note": "Power settings, other-client activity, and other interruptions require operator confirmation; not independently verified.",
+  "scoring_status": "Pending manual review using manifest rubric."
+}
