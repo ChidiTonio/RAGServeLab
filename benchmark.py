@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from experiment import run_trial
-from probe import BASE_URL, build_payload, get_json
+from probe import BASE_URL, PROMPT, build_payload, get_json
 from report_store import ReportStore
 
 
@@ -75,6 +75,9 @@ def run_benchmark(
     out,
     *,
     trials=5,
+    prompt=PROMPT,
+    num_ctx=2048,
+    num_predict=128,
     query=get_json,
     runner=run_trial,
     store_factory=ReportStore,
@@ -85,7 +88,9 @@ def run_benchmark(
     if type(trials) is not int or trials < 1:
         raise ValueError("Trial count must be a positive integer.")
 
-    payload = build_payload(model)
+    payload = build_payload(
+        model, prompt=prompt, num_ctx=num_ctx, num_predict=num_predict
+    )
     report = {
         "schema_version": "0.2",
         "experiment": "sequential_abc",
@@ -163,13 +168,35 @@ def main(argv=None):
     parser.add_argument("--model", default="qwen2.5:3b")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--trials", type=positive_integer, default=5)
+    parser.add_argument(
+        "--prompt-file", type=Path,
+        help="UTF-8 prompt file; contents are preserved without trimming.",
+    )
+    parser.add_argument(
+        "--num-ctx", type=positive_integer,
+        help="Context-window size (default: 2048).",
+    )
+    parser.add_argument(
+        "--num-predict", type=positive_integer,
+        help="Generation token limit (default: 128).",
+    )
     args = parser.parse_args(argv)
     if not args.model.strip():
         parser.error("--model must not be empty.")
 
     try:
+        workload = {}
+        if args.prompt_file is not None:
+            with args.prompt_file.open(
+                "r", encoding="utf-8", newline=""
+            ) as source:
+                workload["prompt"] = source.read()
+        if args.num_ctx is not None:
+            workload["num_ctx"] = args.num_ctx
+        if args.num_predict is not None:
+            workload["num_predict"] = args.num_predict
         report = run_benchmark(
-            args.model, args.out, trials=args.trials
+            args.model, args.out, trials=args.trials, **workload
         )
     except KeyboardInterrupt:
         print(

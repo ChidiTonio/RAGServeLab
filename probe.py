@@ -100,18 +100,23 @@ def generate(payload, *, opener=urlopen, clock=time.perf_counter):
         return read_stream(response, started, clock=clock)
 
 
-def build_payload(model):
-    """Return a fresh request with the shared benchmark generation settings."""
+def build_payload(model, *, prompt=PROMPT, num_ctx=2048, num_predict=128):
+    """Return a fresh request; reject invalid workloads before any I/O."""
+    if not isinstance(prompt, str) or not prompt.strip():
+        raise ValueError("Prompt must be a non-empty string.")
+    for name, value in (("num_ctx", num_ctx), ("num_predict", num_predict)):
+        if type(value) is not int or value < 1:
+            raise ValueError(f"{name} must be a positive integer.")
     return {
         "model": model,
-        "prompt": PROMPT,
+        "prompt": prompt,
         "stream": True,
         "keep_alive": "5m",
         "options": {
             "temperature": 0,
             "seed": 42,
-            "num_ctx": 2048,
-            "num_predict": 128,
+            "num_ctx": num_ctx,
+            "num_predict": num_predict,
         },
     }
 
