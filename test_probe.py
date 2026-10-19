@@ -1,9 +1,10 @@
 """Unit tests for stream completion semantics and reported runtime metrics."""
 
+import io
 import json
 import unittest
 
-from probe import read_stream, runtime_metrics
+from probe import BASE_URL, generate, read_stream, runtime_metrics
 
 
 def encode_events(*events):
@@ -92,6 +93,59 @@ class ProbeTests(unittest.TestCase):
         )
         self.assertEqual(metrics["eval_duration_s"], 0)
         self.assertIsNone(metrics["generation_tokens_per_s"])
+
+
+class GenerationTests(unittest.TestCase):
+    def test_request_payload_and_timing_boundary(self):
+        payload = {
+            "model": "test-model",
+            "prompt": "test prompt",
+            "stream": True,
+        }
+        ticks = iter([10.0, 10.25, 11.0])
+        calls = []
+
+        def opener(request, timeout):
+            calls.append((request, timeout))
+            return io.BytesIO(
+                b"".join(
+                    encode_events(
+                        {"response": "", "done": False},
+                        {"response": "Hello", "done": False},
+                        {"response": " world", "done": True},
+                    )
+                )
+            )
+
+        result = generate(
+            payload,
+            opener=opener,
+            clock=lambda: next(ticks),
+        )
+
+        self.assertEqual(len(calls), 1)
+        request, timeout = calls[0]
+        self.assertEqual(request.full_url, BASE_URL + "/api/generate")
+        self.assertEqual(request.get_method(), "POST")
+        self.assertEqual(
+            request.get_header("Content-type"), "application/json"
+        )
+        self.assertEqual(json.loads(request.data), payload)
+        self.assertEqual(timeout, 180)
+        self.assertEqual(result["answer"], "Hello world")
+        self.assertEqual(result["client_first_text_s"], 0.25)
+        self.assertEqual(result["client_total_s"], 1.0)
+
+    def test_transport_failure_propagates(self):
+        def opener(request, timeout):
+            raise OSError("connection unavailable")
+
+        with self.assertRaisesRegex(OSError, "connection unavailable"):
+            generate(
+                {"model": "test-model"},
+                opener=opener,
+                clock=lambda: 0.0,
+            )
 
 
 if __name__ == "__main__":

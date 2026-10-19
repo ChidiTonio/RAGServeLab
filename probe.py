@@ -83,6 +83,23 @@ def runtime_metrics(event):
     return result
 
 
+def generate(payload, *, opener=urlopen, clock=time.perf_counter):
+    """Execute one streaming request within the client measurement boundary.
+
+    Request serialization precedes timing. Latency includes connection setup
+    and stream consumption, but excludes metadata queries and report writing.
+    """
+    request = Request(
+        BASE_URL + "/api/generate",
+        data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    started = clock()
+    with opener(request, timeout=180) as response:
+        return read_stream(response, started, clock=clock)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default="qwen2.5:3b")
@@ -128,15 +145,7 @@ def main():
         report["model_metadata"] = selected
         report["residency_before"] = get_json("/api/ps")
 
-        request = Request(
-            BASE_URL + "/api/generate",
-            data=json.dumps(payload).encode(),
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        started = time.perf_counter()
-        with urlopen(request, timeout=180) as response:
-            result = read_stream(response, started)
+        result = generate(payload)
 
         report.update(result)
         report["runtime_metrics"] = runtime_metrics(result["final_event"])
