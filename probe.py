@@ -100,17 +100,10 @@ def generate(payload, *, opener=urlopen, clock=time.perf_counter):
         return read_stream(response, started, clock=clock)
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", default="qwen2.5:3b")
-    parser.add_argument("--out", type=Path, required=True)
-    args = parser.parse_args()
-
-    if args.out.exists():
-        parser.error(f"Output already exists: {args.out}")
-
-    payload = {
-        "model": args.model,
+def build_payload(model):
+    """Return a fresh request with the shared benchmark generation settings."""
+    return {
+        "model": model,
         "prompt": PROMPT,
         "stream": True,
         "keep_alive": "5m",
@@ -121,6 +114,18 @@ def main():
             "num_predict": 128,
         },
     }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--model", default="qwen2.5:3b")
+    parser.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+
+    if args.out.exists():
+        parser.error(f"Output already exists: {args.out}")
+
+    payload = build_payload(args.model)
     report = {
         "schema_version": "0.1",
         "started_at_utc": datetime.now(timezone.utc).isoformat(),
