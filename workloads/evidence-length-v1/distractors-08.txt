@@ -1,0 +1,25 @@
+Use only the evidence below to answer the question.
+Return one concise sentence stating the retention period and citing the supporting passage identifier in square brackets.
+If the evidence does not contain the answer, say "Not stated in the evidence."
+
+BEGIN EVIDENCE
+[E001] The Neralis archive retains inspection records for 17 days after receipt. Its records are stored in sealed folders. The archive administrator reviews its storage register each Monday.
+
+[E002] The Veloran-01 archive retains shipping records for 31 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E003] The Veloran-02 archive retains shipping records for 32 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E004] The Veloran-03 archive retains shipping records for 33 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E005] The Veloran-04 archive retains shipping records for 34 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E006] The Veloran-05 archive retains shipping records for 35 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E007] The Veloran-06 archive retains shipping records for 36 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E008] The Veloran-07 archive retains shipping records for 37 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E009] The Veloran-08 archive retains shipping records for 38 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+END EVIDENCE
+
+Question: For how many days does the Neralis archive retain inspection records after receipt, and which passage supports that answer?

@@ -1,0 +1,57 @@
+Use only the evidence below to answer the question.
+Return one concise sentence stating the retention period and citing the supporting passage identifier in square brackets.
+If the evidence does not contain the answer, say "Not stated in the evidence."
+
+BEGIN EVIDENCE
+[E001] The Neralis archive retains inspection records for 17 days after receipt. Its records are stored in sealed folders. The archive administrator reviews its storage register each Monday.
+
+[E002] The Veloran-01 archive retains shipping records for 31 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E003] The Veloran-02 archive retains shipping records for 32 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E004] The Veloran-03 archive retains shipping records for 33 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E005] The Veloran-04 archive retains shipping records for 34 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E006] The Veloran-05 archive retains shipping records for 35 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E007] The Veloran-06 archive retains shipping records for 36 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E008] The Veloran-07 archive retains shipping records for 37 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E009] The Veloran-08 archive retains shipping records for 38 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E010] The Veloran-09 archive retains shipping records for 39 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E011] The Veloran-10 archive retains shipping records for 40 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E012] The Veloran-11 archive retains shipping records for 41 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E013] The Veloran-12 archive retains shipping records for 42 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E014] The Veloran-13 archive retains shipping records for 43 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E015] The Veloran-14 archive retains shipping records for 44 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E016] The Veloran-15 archive retains shipping records for 45 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E017] The Veloran-16 archive retains shipping records for 46 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E018] The Veloran-17 archive retains shipping records for 47 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E019] The Veloran-18 archive retains shipping records for 48 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E020] The Veloran-19 archive retains shipping records for 49 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E021] The Veloran-20 archive retains shipping records for 50 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E022] The Veloran-21 archive retains shipping records for 51 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E023] The Veloran-22 archive retains shipping records for 52 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E024] The Veloran-23 archive retains shipping records for 53 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+
+[E025] The Veloran-24 archive retains shipping records for 54 days after receipt. Its records are stored in labelled cabinets. The archive administrator reviews its storage register each Friday.
+END EVIDENCE
+
+Question: For how many days does the Neralis archive retain inspection records after receipt, and which passage supports that answer?

@@ -1,0 +1,9 @@
+Use only the evidence below to answer the question.
+Return one concise sentence stating the retention period and citing the supporting passage identifier in square brackets.
+If the evidence does not contain the answer, say "Not stated in the evidence."
+
+BEGIN EVIDENCE
+[E001] The Neralis archive retains inspection records for 17 days after receipt. Its records are stored in sealed folders. The archive administrator reviews its storage register each Monday.
+END EVIDENCE
+
+Question: For how many days does the Neralis archive retain inspection records after receipt, and which passage supports that answer?

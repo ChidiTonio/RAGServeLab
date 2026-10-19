@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "workload": "evidence-length-v1",
+  "purpose": "Controlled evidence-use pilot with fixed evidence position.",
+  "synthetic_evidence": true,
+  "answer_passage_position": "first",
+  "nested_distractors": true,
+  "expected_answer": {
+    "retention_days": 17,
+    "passage_id": "E001",
+    "example": "The Neralis archive retains inspection records for 17 days after receipt [E001]."
+  },
+  "scoring": {
+    "method": "Manual review of each saved answer.",
+    "fact_correctness": "Correct only when the response unambiguously states 17 days for Neralis inspection records without a contradictory retention period.",
+    "citation_correctness": "Correct when E001 is cited as support for the retention claim; record extra or conflicting citations separately.",
+    "unsupported_claims": "Record any factual assertion not supported by the supplied evidence; assess separately from fact and citation correctness.",
+    "format_compliance": "Record whether the response is one concise sentence with a bracketed supporting passage identifier.",
+    "termination": "Record the raw completion reason when available. Do not infer completeness from transport success."
+  },
+  "planned_pilot": {
+    "model": "qwen2.5:3b",
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 4096,
+    "num_predict": 64,
+    "trials_per_level": 1,
+    "conditions": [
+      "A",
+      "B",
+      "C"
+    ],
+    "status": "Not executed; settings subject to calibration."
+  },
+  "limitations": [
+    "Question-to-target distance increases with added distractors.",
+    "One synthetic question cannot establish general grounding quality.",
+    "Bytes and characters are not model-token counts.",
+    "Reported prompt counts alone do not establish absence of truncation.",
+    "One trial per level is calibration, not a statistical comparison."
+  ],
+  "fixtures": [
+    {
+      "file": "distractors-00.txt",
+      "distractor_passages": 0,
+      "total_passages": 1,
+      "utf8_bytes": 608,
+      "characters": 608,
+      "prompt_sha256": "e0cb1b9b3bea653221c650479235d7004da12f0fcd0e9d35d0faebe900e273d9"
+    },
+    {
+      "file": "distractors-08.txt",
+      "distractor_passages": 8,
+      "total_passages": 9,
+      "utf8_bytes": 2176,
+      "characters": 2176,
+      "prompt_sha256": "50d4fc87d0f9c7ca2ea79ae9317477250f8ecad5fe8968e7d8f5533223a3d6b3"
+    },
+    {
+      "file": "distractors-24.txt",
+      "distractor_passages": 24,
+      "total_passages": 25,
+      "utf8_bytes": 5312,
+      "characters": 5312,
+      "prompt_sha256": "d74da707c2be86d8398002f18fe458bca0fb4fdd2d3dde347ea1c0c00d42f18e"
+    }
+  ]
+}
