@@ -71,6 +71,7 @@ def runtime_metrics(event):
         )
 
     result["prompt_eval_count"] = event.get("prompt_eval_count")
+    result["prompt_eval_cached_count"] = event.get("prompt_eval_cached_count")
     result["eval_count"] = event.get("eval_count")
     count = result["eval_count"]
     duration = result["eval_duration_s"]

@@ -1,3 +1,5 @@
+"""Unit tests for stream completion semantics and reported runtime metrics."""
+
 import json
 import unittest
 
@@ -54,6 +56,42 @@ class ProbeTests(unittest.TestCase):
         self.assertEqual(metrics["eval_duration_s"], 2)
         self.assertEqual(metrics["generation_tokens_per_s"], 20)
         self.assertIsNone(metrics["load_duration_s"])
+
+    def test_cached_prompt_count_preserves_reported_values(self):
+        for cached_count in (0, 40):
+            with self.subTest(cached_count=cached_count):
+                metrics = runtime_metrics(
+                    {
+                        "prompt_eval_count": 41,
+                        "prompt_eval_cached_count": cached_count,
+                    }
+                )
+                self.assertEqual(metrics["prompt_eval_count"], 41)
+                self.assertEqual(
+                    metrics["prompt_eval_cached_count"], cached_count
+                )
+
+    def test_missing_metrics_remain_unknown(self):
+        metrics = runtime_metrics({})
+        for key in (
+            "total_duration_s",
+            "load_duration_s",
+            "prompt_eval_duration_s",
+            "eval_duration_s",
+            "prompt_eval_count",
+            "prompt_eval_cached_count",
+            "eval_count",
+            "generation_tokens_per_s",
+        ):
+            with self.subTest(key=key):
+                self.assertIsNone(metrics[key])
+
+    def test_zero_generation_duration_has_no_throughput(self):
+        metrics = runtime_metrics(
+            {"eval_count": 40, "eval_duration": 0}
+        )
+        self.assertEqual(metrics["eval_duration_s"], 0)
+        self.assertIsNone(metrics["generation_tokens_per_s"])
 
 
 if __name__ == "__main__":
