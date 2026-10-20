@@ -8,6 +8,7 @@ from pathlib import Path, PurePosixPath
 REQUIRED_FILES = (
     "concurrency.py",
     "concurrency_batch_validation.py",
+    "concurrency_calibration.py",
     "concurrency_experiment.py",
     "concurrency_run_store.py",
     "concurrency_validation.py",
