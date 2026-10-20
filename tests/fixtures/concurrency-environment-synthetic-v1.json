@@ -1,0 +1,59 @@
+{
+  "schema_version": "0.1",
+  "record_type": "supplied_environment_evidence",
+  "test_fixture": true,
+  "recorded_at_utc": "2026-01-01T00:00:00+00:00",
+  "observation_date": "2026-01-01",
+  "observation_time_precision": "Synthetic timestamp for schema testing only",
+  "live_enabled": false,
+  "execution_authorized": false,
+  "observations": {
+    "active_windows_power_scheme": {
+      "source": "operator_supplied_powershell_output",
+      "command": "powercfg /getactivescheme",
+      "raw_output": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+      "name": "Balanced",
+      "guid": "381b4222-f694-41f0-9685-ff5bb260df2e"
+    },
+    "ac_power": {
+      "source": "operator_statement",
+      "value": "connected",
+      "raw_statement": "Synthetic test statement; not an actual observation."
+    },
+    "other_ollama_clients": {
+      "source": "operator_statement",
+      "value": "currently_idle",
+      "raw_statement": "Synthetic test statement; not an actual observation."
+    },
+    "planned_interruptions": {
+      "source": "operator_statement",
+      "value": "none_planned_unless_needed",
+      "raw_statement": "Synthetic test statement; not an actual observation."
+    },
+    "serving_changes_since_project_start": {
+      "source": "operator_statement",
+      "value": "none_reported",
+      "raw_statement": "Synthetic test statement; not an actual observation."
+    },
+    "startup_log": {
+      "source": "operator_statement",
+      "availability": "unavailable",
+      "verified": false
+    },
+    "model_recollection": {
+      "source": "operator_recollection",
+      "raw_statement": "Synthetic recollection; model identity unknown.",
+      "exact_model_tag_verified": false,
+      "model_digest_verified": false
+    },
+    "separate_windows_power_mode": {
+      "availability": "unknown"
+    }
+  },
+  "limitations": [
+    "Synthetic test fixture; not evidence of any actual environment.",
+    "All command output and statements are fabricated for schema tests.",
+    "No server configuration, connectivity, or residency is established.",
+    "This fixture grants no execution authority."
+  ]
+}

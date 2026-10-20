@@ -9,7 +9,7 @@ from concurrency_preflight import validate_environment_evidence
 
 
 ROOT = Path(__file__).resolve().parent
-EVIDENCE = ROOT / "docs/concurrency-environment-evidence-20261020.json"
+EVIDENCE = ROOT / "tests/fixtures/concurrency-environment-synthetic-v1.json"
 
 
 class EnvironmentEvidenceTests(unittest.TestCase):

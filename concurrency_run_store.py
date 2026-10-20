@@ -41,13 +41,33 @@ def offline_plan(root, mode="measured"):
     prompt = raw.decode("utf-8")
     digest = hashlib.sha256(raw).hexdigest()
     manifest = json.loads((root / MANIFEST).read_bytes())
-    matches = [
-        item for item in manifest["fixtures"]
-        if item["file"] == FIXTURE.name
-    ]
+    if not isinstance(manifest, dict):
+        raise ValueError("Manifest must be a JSON object.")
+    fixtures = manifest.get("fixtures")
+    if not isinstance(fixtures, list):
+        raise ValueError("Manifest must contain a fixtures list.")
+
+    matches = []
+    for item in fixtures:
+        if not isinstance(item, dict):
+            raise ValueError("Manifest fixture entries must be JSON objects.")
+        name = item.get("file")
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError("Manifest fixture entries require a file name.")
+        if name == FIXTURE.name:
+            matches.append(item)
+
     if len(matches) != 1:
         raise ValueError("Manifest must contain exactly one target fixture.")
     entry = matches[0]
+    if (
+        not isinstance(entry.get("prompt_sha256"), str)
+        or type(entry.get("utf8_bytes")) is not int
+        or entry["utf8_bytes"] < 0
+        or type(entry.get("characters")) is not int
+        or entry["characters"] < 0
+    ):
+        raise ValueError("Target fixture metadata is malformed.")
     if (
         digest != PROMPT_HASH
         or entry["prompt_sha256"] != digest

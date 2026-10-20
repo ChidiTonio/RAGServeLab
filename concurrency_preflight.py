@@ -222,6 +222,11 @@ def validate_environment_evidence(evidence):
     }
 
 
+def _reject_nonfinite_json_constant(value):
+    """Reject non-standard numeric constants before retaining evidence."""
+    raise ValueError(f"Evidence contains a non-finite JSON constant: {value}")
+
+
 def persist_offline_preflight(root, evidence_path, directory, mode="measured"):
     """Save local preflight observations in an exclusive directory.
 
@@ -272,7 +277,9 @@ def persist_offline_preflight(root, evidence_path, directory, mode="measured"):
         report["environment_evidence_sha256"] = (
             hashlib.sha256(raw).hexdigest()
         )
-        supplied = json.loads(raw)
+        supplied = json.loads(
+            raw, parse_constant=_reject_nonfinite_json_constant
+        )
         # Preserve decoded evidence even when validation rejects it.
         report["supplied_environment_evidence"] = copy.deepcopy(supplied)
         report["environment_evidence"] = (

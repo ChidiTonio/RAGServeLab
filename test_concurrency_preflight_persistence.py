@@ -10,7 +10,7 @@ from concurrency_preflight import persist_offline_preflight
 
 
 ROOT = Path(__file__).resolve().parent
-EVIDENCE = ROOT / "docs/concurrency-environment-evidence-20261020.json"
+EVIDENCE = ROOT / "tests/fixtures/concurrency-environment-synthetic-v1.json"
 
 
 class PreflightPersistenceTests(unittest.TestCase):
