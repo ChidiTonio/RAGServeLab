@@ -222,6 +222,18 @@ def validate_environment_evidence(evidence):
     }
 
 
+def _parse_finite_json_float(value):
+    """Reject overflowing float literals before retaining evidence."""
+    import math
+
+    decoded = float(value)
+    if not math.isfinite(decoded):
+        raise ValueError(
+            f"Evidence contains a non-finite JSON number: {value}"
+        )
+    return decoded
+
+
 def _reject_nonfinite_json_constant(value):
     """Reject non-standard numeric constants before retaining evidence."""
     raise ValueError(f"Evidence contains a non-finite JSON constant: {value}")
@@ -278,7 +290,9 @@ def persist_offline_preflight(root, evidence_path, directory, mode="measured"):
             hashlib.sha256(raw).hexdigest()
         )
         supplied = json.loads(
-            raw, parse_constant=_reject_nonfinite_json_constant
+            raw,
+            parse_constant=_reject_nonfinite_json_constant,
+            parse_float=_parse_finite_json_float,
         )
         # Preserve decoded evidence even when validation rejects it.
         report["supplied_environment_evidence"] = copy.deepcopy(supplied)

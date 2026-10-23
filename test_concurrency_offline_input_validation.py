@@ -147,11 +147,19 @@ class OfflineInputValidationTests(unittest.TestCase):
         ) as validate, patch.object(
             preflight, "build_offline_execution_preflight"
         ) as planning:
-            for index, constant in enumerate(
-                ("NaN", "Infinity", "-Infinity")
-            ):
+            cases = (
+                ("NaN", b'{"value": NaN}'),
+                ("Infinity", b'{"value": Infinity}'),
+                ("-Infinity", b'{"value": -Infinity}'),
+                ("positive_overflow", b'{"value": 1e400}'),
+                ("negative_overflow", b'{"value": -1e400}'),
+                ("nested_positive_overflow",
+                 b'{"value": {"nested": [1e400]}}'),
+                ("nested_negative_overflow",
+                 b'{"value": [{"nested": -1e400}]}'),
+            )
+            for index, (constant, raw) in enumerate(cases):
                 with self.subTest(constant=constant):
-                    raw = ('{"value": ' + constant + "}").encode("utf-8")
                     self.evidence.write_bytes(raw)
                     directory = self.root / f"nonfinite-{index}"
                     report = preflight.persist_offline_preflight(
