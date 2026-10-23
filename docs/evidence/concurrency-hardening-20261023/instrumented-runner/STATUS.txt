@@ -1,0 +1,64 @@
+PREPARATION ONLY — NO SANDBOX OR PROJECT EXECUTION PERFORMED.
+
+Proposed runtime:
+- Trusted installed /usr/bin/python3.14.
+- Read-only /usr/lib/python3.14 standard-library directory.
+- Read-only /usr/lib/x86_64-linux-gnu shared-library directory.
+These are directory-level runtime mounts, not a minimal library closure.
+Python -I -S disables user paths and site initialization.
+Runtime binaries/libraries are trusted host inputs, not independently
+authenticated by this runner manifest.
+
+Smoke scope:
+- A fresh sandbox for each check.
+- Allowed temporary-file operations and atomic replacement.
+- Read-only snapshot enforcement.
+- Absence of common host-home/repository mount paths.
+- Fresh network namespace exposing only loopback.
+- Startup socket denial.
+- Locked socket, fork, exec, and x32-ABI denial.
+SIGSYS checks are scoped observations, not exhaustive policy verification.
+
+Security limitations:
+- Assumes no hostile same-user process mutates artifacts during launch.
+- Hash-before-use is not an atomic defense against concurrent mutation.
+- Python controls are defense in depth, not malicious-Python isolation.
+- No claim of protection against kernel or trusted-runtime vulnerabilities.
+
+Regression execution remains blocked:
+- Require reviewed smoke results.
+- Require independent confirmation of the baseline commit.
+- Require a separately prepared/authenticated regression entry point.
+- Require separate project-test authorization.
+
+V2 RUNNER PREPARATION:
+Original runner manifest SHA-256: 18d8354b690c7cd6cec6d850f25c6acc7343000dd6c272996498d1515e55054f
+Filter build directory: /tmp/rag-seccomp-build-v2.nUjzIBcr
+Build evidence manifest SHA-256: 401322ad85efca39cb3e52af95b24e5d96c3dfb3fc7874bfe8dbca3966efb0d1
+Revised filter manifest SHA-256: fd60de064cc77ad17e4a6be5187a9b250ce7f5ab658f1e4318eaca28d8f713b7
+Startup filter now includes wait4 (61).
+Locked filter remains byte-for-byte unchanged.
+Launcher, bootstrap, and smoke source remain unchanged.
+No smoke checks or project tests executed during this preparation.
+
+DIAGNOSTIC PREPARATION ONLY:
+Source runner directory: /tmp/rag-sandbox-runner-v2.R5Ftelen
+Source runner manifest SHA-256: 6b9445cc55bc76ed78336910f1bebdde581a35ea4ef7bb2e46437a4e0c601757
+bootstrap.py and smoke.py contain flushed checkpoint prints.
+Both BPF filters and launch_smoke.sh remain byte-for-byte unchanged.
+Diagnostic output is not acceptance evidence.
+No Python, sandbox, smoke checks, or project tests executed here.
+The copied launcher still contains all six cases.
+Do not execute it for the proposed allowed-case-only diagnostic.
+A separately reviewed entry point and execution authorization are required.
+
+ALLOWED-ONLY DIAGNOSTIC ENTRY POINT:
+Parent diagnostic manifest SHA-256: a54179f66a67d3d6fbcd3e51e57512097bfd172b9b1a87fcb703d1a68f892447
+Launcher schedules only: run_case allowed 0
+Required flag: --authorized-allowed-diagnostic
+Sandbox invocation and filters are unchanged.
+A nonzero exit stops the launcher and leaves the checkpoint log.
+RESULTS.sha256 is produced only if the case returns zero and passes
+the existing allowed-case marker check.
+Neither outcome substitutes for an uninstrumented smoke run.
+No sandbox or project execution performed during this preparation.

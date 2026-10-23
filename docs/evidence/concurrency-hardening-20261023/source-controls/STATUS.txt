@@ -1,0 +1,37 @@
+STATUS: PREPARED SOURCE ONLY — EXECUTION BLOCKED
+
+Neither Python source has been executed.
+Filters have not been encoded or enforcement-tested.
+No project modules or tests have been executed.
+
+Required before execution:
+1. Review these source controls and independently retain their manifest pin.
+2. Independently confirm the snapshot baseline.
+3. Separately authorize standalone filter encoding.
+4. Authenticate generated filters and the eventual launcher.
+5. Review runtime mounts and exact artifact-set verification.
+6. Separately authorize and pass sandbox/security smoke checks.
+7. Separately authorize the scoped regression.
+
+Launcher requirements:
+- Verify snapshot, source controls, and generated filter pins.
+- Reject unexpected paths, symlinks, and non-regular input files.
+- Mount snapshot at /snapshot and controls/locked filter at /controls,
+  read-only.
+- Expose only reviewed read-only Python runtime dependencies.
+- Do not mount the repository or home directory.
+- Use Bubblewrap namespaces, no network, no capabilities,
+  private /proc and narrowly scoped devices.
+- Private /tmp; create /tmp/tests; working directory /tmp/tests.
+- Apply startup.bpf using Bubblewrap --seccomp.
+- Execute reviewed Python with -I -S -B and /controls/bootstrap.py.
+- Bound wall time, memory, and output; capture results externally.
+
+Scope limitation:
+Python guards are defense in depth for reviewed code, not an adversarial
+Python isolation mechanism. Seccomp does not implement pathname access
+control. Namespace mounts are essential to the filesystem boundary.
+
+The explicit syscall policy is provisional until enforcement and
+compatibility checks pass. A failed check is not permission to expand
+the policy without review.

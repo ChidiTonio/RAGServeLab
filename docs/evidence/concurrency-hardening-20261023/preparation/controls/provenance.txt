@@ -1,0 +1,6 @@
+baseline_commit=b1ba8c345407dda3655a1b23c8ebd61dedc55fa0
+baseline_reference=b1ba8c3
+baseline_full_hash_status=locally_resolved_not_independently_pinned
+snapshot=baseline_dependencies_plus_two_hash_pinned_patches
+project_execution=not_performed
+test_execution=not_authorized

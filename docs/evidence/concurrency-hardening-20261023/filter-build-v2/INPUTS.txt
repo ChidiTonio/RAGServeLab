@@ -1,0 +1,7 @@
+Source directory: /tmp/rag-filter-source-v2.DRYiVime
+Source manifest SHA-256: b1e28185578832fda98df3e4d2c6daeacf53d24db4a9190d9321646eb01d03f0
+Original filter directory: /tmp/rag-seccomp-build.tpDv2MLB/filters
+Original filter manifest SHA-256: cc5a0fd178cd80e2558ba18592b428418da733ea54a9d5a05c8bb46f31ec6581
+Python executable: /usr/bin/python3.14
+Python SHA-256: 52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41
+Invocation flags: -I -S

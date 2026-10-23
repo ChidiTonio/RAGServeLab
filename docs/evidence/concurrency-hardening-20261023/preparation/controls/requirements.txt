@@ -1,0 +1,41 @@
+STATUS: BLOCKED — preparation artifacts, not a runnable test sandbox.
+
+Scope:
+- Exactly OfflineInputValidationTests in the named test module.
+- Expected count: four test methods; seven non-finite input subcases.
+- Retain the six reviewed project files unchanged.
+- Retain real schedule constants, payload builder, and report persistence.
+- Exclude live operations and unrestricted test discovery.
+
+Required bootstrap, not yet implemented:
+- Establish controls before any project import.
+- Use isolated Python startup, disable site initialization and bytecode writes.
+- Supply only the exact imported symbols in fail-closed substitutes for:
+  concurrency, concurrency_batch_validation, residency,
+  concurrency_validation.
+- Every substituted callable must record an invocation and raise.
+- Any invocation must fail the overall run, even if its error is caught.
+- Constrain imports and writes; unexpected dependencies must fail closed.
+- Load only the explicitly allowed test class and check the method count.
+
+Required kernel controls:
+- Bubblewrap namespace foundation already passed a host-only probe.
+- Read-only snapshot/control mounts; no repository or home mount.
+- Private temporary storage; test writes restricted to /tmp/tests.
+- Resolve Python runtime mounts without executing project code.
+- Produce, review, authenticate, and verify a suitable seccomp filter.
+- Network isolation alone does not satisfy the seccomp gate.
+- Bound execution time and resources; capture output outside the sandbox.
+
+Authentication:
+- Retain the emitted manifest digest separately as a trust anchor.
+- Independently confirm/pin the full baseline commit before execution.
+- Verify manifest, file hashes, and exact file set before execution.
+- Any added or modified control/filter requires review and a new pin.
+- Read-only permissions are accidental-write protection, not immutability.
+- Hashes prove byte identity relative to a trusted pin, not safety.
+
+Authorization:
+- External preparation only.
+- No Python/project imports, tests, filter build, packages, or network access.
+- Sandbox smoke checks and regression execution need separate authorization.

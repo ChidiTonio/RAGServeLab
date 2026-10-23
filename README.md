@@ -6,9 +6,14 @@ generation (RAG) workloads.
 
 ## Current scope
 
-The current implementation is a single-request streaming Ollama probe.
-Retrieval, evidence-grounding evaluation, concurrency experiments, and
-aggregate statistical reporting are not implemented yet.
+The implementation includes a single-request streaming Ollama probe, evidence-length experiment records, and offline concurrency implementation, validation, and calibration-planning support.
+
+Regression validation for the latest offline input-hardening changes remains pending. Live concurrency calibration and measured concurrency execution remain separately gated. Retrieval integration and evidence-grounding evaluation are not implemented.
+
+See [the concurrency protocol](docs/concurrency-protocol-v1.md) and
+[the hardening continuation record](docs/concurrency-hardening-continuation-20261023.md)
+for scope, evidence, limitations, and outstanding validation.
+
 
 Research directions:
 
@@ -35,11 +40,10 @@ From the repository root:
 
     python3 -m venv .venv
     source .venv/bin/activate
-    python -m unittest discover -v
 
-The current suite contains five tests covering empty stream events,
-incomplete streams, empty completions, server errors, and runtime metric
-conversion/throughput.
+Test coverage has expanded beyond the initial probe suite. The latest offline input-validation regressions remain unexecuted; source coverage is not a passing-test result.
+
+For the current hardening workflow, do not use unrestricted test discovery. Scoped regression execution requires a separately reviewed entry point and explicit authorization, as described in the hardening continuation record.
 
 Unit tests do not independently verify a live server or GPU placement.
 
@@ -108,8 +112,8 @@ This pair is a smoke check, not a controlled experiment or latency distribution.
 
 ## Next milestones
 
-1. Separate model-residency effects from prompt-cache reuse.
-2. Collect repeated observations with explicit experimental conditions.
-3. Verify placement using server logs and GPU telemetry.
-4. Add context-length and concurrency experiments.
+1. Complete scoped regression validation for offline concurrency hardening.
+2. Preserve and review experiment provenance and control evidence.
+3. Authorize and run concurrency calibration and the measured schedule separately.
+4. Verify placement using server logs and GPU telemetry.
 5. Integrate retrieval and evaluate evidence-grounded answers.

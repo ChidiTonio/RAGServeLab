@@ -1,0 +1,10 @@
+Preparation only; revised generator has not been executed.
+
+Change:
+Add Linux x86-64 wait4 (syscall 61) to startup.bpf only.
+Reason:
+Observed audit record reported Bubblewrap killed by seccomp on syscall 61.
+
+The locked.bpf policy remains unchanged.
+Original controls, filters, runner, and failure evidence remain untouched.
+New filter encoding and sandbox execution require separate authorization.
